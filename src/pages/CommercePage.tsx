@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export interface Product {
@@ -12,160 +12,6 @@ export interface Product {
   image: string;
 }
 
-// --- Real Product Data Array ---
-export const REAL_PRODUCTS: Product[] = [
-  {
-    id: "prod-1",
-    productNo: "PRD-101",
-    title: "Handmade Candles",
-    category: "Handmade",
-    price: 100,
-    description: "Scented handcrafted candles featuring lavender and vanilla aromas.",
-    sellerName: "Maha Fatima",
-    image: "/products/handmade-candles.jpg",
-  },
-  {
-    id: "prod-2",
-    productNo: "PRD-102",
-    title: "Bliss in a Box",
-    category: "Sweets",
-    price: 325,
-    description: "Rich layered dessert bowl topped with grated white and dark chocolate shavings.",
-    sellerName: "Sumaiya Tahseen",
-    image: "/products/bliss-in-a-box.jpg",
-  },
-  {
-    id: "prod-3",
-    productNo: "PRD-103",
-    title: "Signature Ganache Cake",
-    category: "Baking",
-    price: 299,
-    description: "Decadent chocolate ganache dessert box generously layered with flaked chocolate toppings.",
-    sellerName: "Sumaiya Tehseen",
-    image: "/products/signature-ganache-cake.jpg",
-  },
-  {
-    id: "prod-4",
-    productNo: "PRD-104",
-    title: "Artisan Glazed Donuts (Box of 6)",
-    category: "Baking",
-    price: 60,
-    description: "Freshly baked chocolate glazed donuts topped with chocolate shavings and delicate gold leaf details.",
-    sellerName: "Saima jabeen",
-    image: "/products/glazed-donuts.jpg",
-  },
-  {
-    id: "prod-5",
-    productNo: "PRD-105",
-    title: "Hand-Drawn Framed Art Set",
-    category: "Art",
-    price: 500,
-    description: "Custom framed monochrome pencil sketches featuring architectural landmarks and Porsche 911 GT3 RS artwork.",
-    sellerName: "Moheeda Rahman",
-    image: "/products/framed-art.jpg",
-  },
-  {
-    id: "prod-6",
-    productNo: "PRD-106",
-    title: "Belgium Boats",
-    category: "Baking",
-    price: 275,
-    description: "Belgium boats filled with pure Belgium chocolate different sizes",
-    sellerName: "Browine Rani",
-    image: "/products/mini-cookie-cakes.jpg",
-  },
-  {
-    id: "prod-7",
-    productNo: "PRD-107",
-    title: "Fresh Baked homemade Pizza",
-    category: "Baking",
-    price: 200,
-    description: "Oven-baked artisanal pizza loaded with melted cheese, bell peppers, olives, onions, and Italian herbs.",
-    sellerName: "umma kulsum",
-    image: "/products/veggie-pizza.jpg",
-  },
-  {
-    id: "prod-8",
-    productNo: "PRD-108",
-    title: "Fudge Brownie truffle Box",
-    category: "Sweets",
-    price: 300,
-    description: "Rich fudge brownie cake layer served in a tub topped with smooth chocolate ganache.",
-    sellerName: "umma kulsum",
-    image: "/products/fudge-brownie-box.jpg",
-  },
-  {
-    id: "prod-9",
-    productNo: "PRD-109",
-    title: "Handmade Floral Cable Protector",
-    category: "Handmade",
-    price: 500,
-    description: "Handcrafted green cable sleeve decorated with bright orange felt flowers for chargers and cables.",
-    sellerName: "umma kulsum",
-    image: "/products/floral-cable-protector.jpg",
-  },
-  {
-    id: "prod-10",
-    productNo: "PRD-110",
-    title: "matilda Cake",
-    category: "Baking",
-    price: 200,
-    description: "Rich, moist chocolate cake topped with a delicious layer of chocolate crumbs.",
-    sellerName: "umma kulsum",
-    image: "/products/matlida-cake.jpg",
-  },
-   {
-    id: "prod-11",
-    productNo: "PRD-111",
-    title: "Cupcakes",
-    category: "Sweets",
-    price: 80,
-    description: "Three deliciously frosted cupcakes in chocolate, caramel, and strawberry flavors.",
-    sellerName: "umma kulsum",
-    image: "/products/cupcakes.jpg",
-  },
-   {
-    id: "prod-12",
-    productNo: "PRD-112",
-    title: "Nutella Brownies",
-    category: "Sweets",
-    price: 150,
-    description: "Fudgy, rich chocolate brownies with a soft, gooey center and irresistible chocolate flavor.",
-    sellerName: "umma kulsum",
-    image: "/products/nutella-brownie.jpg",
-  },
-  {
-    id: "prod-13",
-    productNo: "PRD-113",
-    title: "Custom Name & Initial Necklaces",
-    category: "Handmade",
-    price: 600,
-    description: "Personalized gold-plated necklaces available with custom names, Arabic calligraphy, or initial letters.",
-    sellerName: "Sidrah",
-    image: "/products/custom-necklaces.jpg",
-  },
-  {
-    id: "prod-14",
-    productNo: "PRD-114",
-    title: "Custom Gift Bouquets & Hampers",
-    category: "Handmade",
-    price: 300,
-    description: "Handcrafted customized hampers, chocolate bouquets, ribbon flower arrangements, and gift boxes.",
-    sellerName: "Sidrah",
-    image: "/products/custom-gift-hampers.jpg",
-  },
-  {
-    id: "prod-15",
-    productNo: "PRD-115",
-    title: "Twisted Art",
-    category: "Handmade",
-    price: 50,
-    description: "A beautiful twisted art piece inspired by delicate blooming flowers.",
-    sellerName: "Sidrah",
-    image: "/products/twisted-art.jpg",
-  },
-];
-
 const BUYER_GOOGLE_FORM_URL = "https://forms.gle/Xe9TPuy16zmxKq346";
 const SELLER_GOOGLE_FORM_URL = "https://forms.gle/wTVoFffDkZSQJtCn7";
 
@@ -174,16 +20,24 @@ interface CommercePageProps {
 }
 
 export const CommercePage: React.FC<CommercePageProps> = ({ onBackToMain }) => {
+  const [products, setProducts] = useState<Product[]>([]);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [showBuyerForm, setShowBuyerForm] = useState(false);
   const [showSellerForm, setShowSellerForm] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string>("All");
 
+  useEffect(() => {
+    fetch("/products.json")
+      .then((res) => res.json())
+      .then((data: Product[]) => setProducts(data))
+      .catch((err) => console.error("Error loading products JSON:", err));
+  }, []);
+
   const categories = ["All", "Baking", "Handmade", "Sweets", "Art"];
 
   const filteredProducts = activeCategory === "All"
-    ? REAL_PRODUCTS
-    : REAL_PRODUCTS.filter((p) => p.category === activeCategory);
+    ? products
+    : products.filter((p) => p.category === activeCategory);
 
   return (
     <div className="min-h-screen w-full bg-[#1A0C09] text-[#E2C2A2] font-sans relative overflow-x-hidden">
