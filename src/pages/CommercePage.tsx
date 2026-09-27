@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 export interface Product {
@@ -12,7 +12,17 @@ export interface Product {
   image: string;
 }
 
-const DEFAULT_PRODUCTS: Product[] = [
+// Helper to safely format local public paths for Vite
+const getImageUrl = (imagePath: string): string => {
+  if (imagePath.startsWith("http://") || imagePath.startsWith("https://")) {
+    return imagePath;
+  }
+  const cleanPath = imagePath.startsWith("/") ? imagePath.slice(1) : imagePath;
+  return `${import.meta.env.BASE_URL}${cleanPath}`;
+};
+
+// --- Real Product Data Array ---
+export const REAL_PRODUCTS: Product[] = [
   {
     id: "prod-1",
     productNo: "PRD-101",
@@ -21,7 +31,7 @@ const DEFAULT_PRODUCTS: Product[] = [
     price: 100,
     description: "Scented handcrafted candles featuring lavender and vanilla aromas.",
     sellerName: "Maha Fatima",
-    image: "/products/handmade-candles.jpg"
+    image: "/products/handmade-candles.jpg",
   },
   {
     id: "prod-2",
@@ -31,7 +41,7 @@ const DEFAULT_PRODUCTS: Product[] = [
     price: 325,
     description: "Rich layered dessert bowl topped with grated white and dark chocolate shavings.",
     sellerName: "Sumaiya Tahseen",
-    image: "/products/bliss-in-a-box.jpg"
+    image: "/products/bliss-in-a-box.jpg",
   },
   {
     id: "prod-3",
@@ -41,7 +51,7 @@ const DEFAULT_PRODUCTS: Product[] = [
     price: 299,
     description: "Decadent chocolate ganache dessert box generously layered with flaked chocolate toppings.",
     sellerName: "Sumaiya Tehseen",
-    image: "/products/signature-ganache-cake.jpg"
+    image: "/products/signature-ganache-cake.jpg",
   },
   {
     id: "prod-4",
@@ -51,7 +61,7 @@ const DEFAULT_PRODUCTS: Product[] = [
     price: 60,
     description: "Freshly baked chocolate glazed donuts topped with chocolate shavings and delicate gold leaf details.",
     sellerName: "Saima jabeen",
-    image: "/products/glazed-donuts.jpg"
+    image: "/products/glazed-donuts.jpg",
   },
   {
     id: "prod-5",
@@ -61,7 +71,7 @@ const DEFAULT_PRODUCTS: Product[] = [
     price: 500,
     description: "Custom framed monochrome pencil sketches featuring architectural landmarks and Porsche 911 GT3 RS artwork.",
     sellerName: "Moheeda Rahman",
-    image: "/products/framed-art.jpg"
+    image: "/products/framed-art.jpg",
   },
   {
     id: "prod-6",
@@ -71,7 +81,7 @@ const DEFAULT_PRODUCTS: Product[] = [
     price: 275,
     description: "Belgium boats filled with pure Belgium chocolate different sizes",
     sellerName: "Browine Rani",
-    image: "/products/mini-cookie-cakes.jpg"
+    image: "/products/mini-cookie-cakes.jpg",
   },
   {
     id: "prod-7",
@@ -81,7 +91,7 @@ const DEFAULT_PRODUCTS: Product[] = [
     price: 200,
     description: "Oven-baked artisanal pizza loaded with melted cheese, bell peppers, olives, onions, and Italian herbs.",
     sellerName: "umma kulsum",
-    image: "/products/veggie-pizza.jpg"
+    image: "/products/veggie-pizza.jpg",
   },
   {
     id: "prod-8",
@@ -91,7 +101,7 @@ const DEFAULT_PRODUCTS: Product[] = [
     price: 300,
     description: "Rich fudge brownie cake layer served in a tub topped with smooth chocolate ganache.",
     sellerName: "umma kulsum",
-    image: "/products/fudge-brownie-box.jpg"
+    image: "/products/fudge-brownie-box.jpg",
   },
   {
     id: "prod-9",
@@ -101,7 +111,7 @@ const DEFAULT_PRODUCTS: Product[] = [
     price: 500,
     description: "Handcrafted green cable sleeve decorated with bright orange felt flowers for chargers and cables.",
     sellerName: "umma kulsum",
-    image: "/products/floral-cable-protector.jpg"
+    image: "/products/floral-cable-protector.jpg",
   },
   {
     id: "prod-10",
@@ -111,7 +121,7 @@ const DEFAULT_PRODUCTS: Product[] = [
     price: 200,
     description: "Rich, moist chocolate cake topped with a delicious layer of chocolate crumbs.",
     sellerName: "umma kulsum",
-    image: "/products/matlida-cake.jpg"
+    image: "/products/matlida-cake.jpg",
   },
   {
     id: "prod-11",
@@ -121,7 +131,7 @@ const DEFAULT_PRODUCTS: Product[] = [
     price: 80,
     description: "Three deliciously frosted cupcakes in chocolate, caramel, and strawberry flavors.",
     sellerName: "umma kulsum",
-    image: "/products/cupcakes.jpg"
+    image: "/products/cupcakes.jpg",
   },
   {
     id: "prod-12",
@@ -131,7 +141,7 @@ const DEFAULT_PRODUCTS: Product[] = [
     price: 150,
     description: "Fudgy, rich chocolate brownies with a soft, gooey center and irresistible chocolate flavor.",
     sellerName: "umma kulsum",
-    image: "/products/nutella-brownie.jpg"
+    image: "/products/nutella-brownie.jpg",
   },
   {
     id: "prod-13",
@@ -141,7 +151,7 @@ const DEFAULT_PRODUCTS: Product[] = [
     price: 600,
     description: "Personalized gold-plated necklaces available with custom names, Arabic calligraphy, or initial letters.",
     sellerName: "Sidrah",
-    image: "/products/custom-necklaces.jpg"
+    image: "/products/custom-necklaces.jpg",
   },
   {
     id: "prod-14",
@@ -151,7 +161,7 @@ const DEFAULT_PRODUCTS: Product[] = [
     price: 300,
     description: "Handcrafted customized hampers, chocolate bouquets, ribbon flower arrangements, and gift boxes.",
     sellerName: "Sidrah",
-    image: "/products/custom-gift-hampers.jpg"
+    image: "/products/custom-gift-hampers.jpg",
   },
   {
     id: "prod-15",
@@ -161,8 +171,8 @@ const DEFAULT_PRODUCTS: Product[] = [
     price: 50,
     description: "A beautiful twisted art piece inspired by delicate blooming flowers.",
     sellerName: "Sidrah",
-    image: "/products/twisted-art.jpg"
-  }
+    image: "/products/twisted-art.jpg",
+  },
 ];
 
 const BUYER_GOOGLE_FORM_URL = "https://forms.gle/Xe9TPuy16zmxKq346";
@@ -173,33 +183,16 @@ interface CommercePageProps {
 }
 
 export const CommercePage: React.FC<CommercePageProps> = ({ onBackToMain }) => {
-  const [products, setProducts] = useState<Product[]>(DEFAULT_PRODUCTS);
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [showBuyerForm, setShowBuyerForm] = useState(false);
   const [showSellerForm, setShowSellerForm] = useState(false);
   const [activeCategory, setActiveCategory] = useState<string>("All");
 
-  useEffect(() => {
-    fetch("/products.json")
-      .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch products.json");
-        return res.json();
-      })
-      .then((data: Product[]) => {
-        if (Array.isArray(data) && data.length > 0) {
-          setProducts(data);
-        }
-      })
-      .catch((err) => {
-        console.warn("Using default products fallback due to error:", err);
-      });
-  }, []);
-
   const categories = ["All", "Baking", "Handmade", "Sweets", "Art"];
 
   const filteredProducts = activeCategory === "All"
-    ? products
-    : products.filter((p) => p.category === activeCategory);
+    ? REAL_PRODUCTS
+    : REAL_PRODUCTS.filter((p) => p.category === activeCategory);
 
   return (
     <div className="min-h-screen w-full bg-[#1A0C09] text-[#E2C2A2] font-sans relative overflow-x-hidden">
@@ -268,7 +261,7 @@ export const CommercePage: React.FC<CommercePageProps> = ({ onBackToMain }) => {
           ))}
         </div>
 
-        {/* --- Product Grid --- */}
+        {/* --- High Contrast Highlighted Product Grid --- */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {filteredProducts.map((product) => {
             const isSelected = selectedProduct?.id === product.id;
@@ -289,8 +282,11 @@ export const CommercePage: React.FC<CommercePageProps> = ({ onBackToMain }) => {
                 <div className="relative w-full h-[180px] rounded-xl overflow-hidden bg-[#1A0C09] mb-3.5 border border-[#C89F7A]/20">
                   <motion.img
                     layoutId={`image-${product.id}`}
-                    src={product.image}
+                    src={getImageUrl(product.image)}
                     alt={product.title}
+                    onError={(e) => {
+                      console.error(`Failed to load image at: ${getImageUrl(product.image)}`);
+                    }}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     style={{ opacity: isSelected ? 0 : 1 }}
                   />
@@ -355,7 +351,7 @@ export const CommercePage: React.FC<CommercePageProps> = ({ onBackToMain }) => {
               <div className="relative w-full md:w-1/2 h-[240px] md:h-auto overflow-hidden bg-[#1A0C09]">
                 <motion.img
                   layoutId={`image-${selectedProduct.id}`}
-                  src={selectedProduct.image}
+                  src={getImageUrl(selectedProduct.image)}
                   alt={selectedProduct.title}
                   className="w-full h-full object-cover"
                 />
