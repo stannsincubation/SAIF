@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence, useMotionValue, animate } from "framer-motion";
 
 import bites from "@/assets/bites.png";
-import luna from "@/assets/luna.png";
+import luna from "@/assets/Luna.png";
 import browine from "@/assets/brownie.png";
 import cookies from "@/assets/cookies.png";
 import life from "@/assets/life.png";
