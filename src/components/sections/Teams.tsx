@@ -9,14 +9,12 @@ import team4 from "@/assets/team-4.png";
 import team5 from "@/assets/team-5.png";
 import team6 from "@/assets/team-6.png";
 import team7 from "@/assets/team-7.png";
-import team8 from "@/assets/team-8.png";
 import team9 from "@/assets/team-9.png";
 import team10 from "@/assets/team-10.png";
 import team11 from "@/assets/team-11.png";
 import team12 from "@/assets/team-12.png";
 import team13 from "@/assets/team-13.png";
 import team14 from "@/assets/team-14.png";
-import team15 from "@/assets/team-15.png";
 import team16 from "@/assets/team-16.png";
 import team17 from "@/assets/team-17.png";
 import team18 from "@/assets/team-18.png";
@@ -46,14 +44,12 @@ const Teams = () => {
     { name: "Krithika Kiran", role: "Head of Public Relations", image: team5 },
     { name: "Haifa Siddique", role: "Student Ambassador - Chercha", image: team6 },
     { name: "K. Poojitha Reddy", role: "Media Head - Project Mitra", image: team7 },
-    { name: "Dipti Rani Dalai", role: "Head of LinkedIn", image: team8 },
     { name: "B. Sirisha", role: "Documentation Head", image: team9 },
     { name: "M. Pragna", role: "Public Relations", image: team10 },
     { name: "Soha Khan", role: "Finance Head", image: team11 },
     { name: "Kamaleshwari", role: "Documentation", image: team12 },
     { name: "Zeba Naaz", role: "Organising Head", image: team13 },
     { name: "Saeeha", role: "Project Ambassador - Charcha", image: team14 },
-    { name: "Krithika Mogulothu", role: "Public Relations Core", image: team15 },
     { name: "K. Sravya Reddy", role: "Student Ambassador - Palle Baata", image: team16 },
     { name: "K. Shivani", role: "Organising Head", image: team17 },
     { name: "k.Vinya Sri", role: "Organising Head", image: team18 },
