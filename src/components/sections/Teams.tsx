@@ -4,7 +4,6 @@ import marketingHeadImage from "@/assets/marketing-head.jpeg";
 import webHeadImage from "@/assets/web-head.png";
 import team1 from "@/assets/team-1.png";
 import team2 from "@/assets/team-2.png";
-import team3 from "@/assets/team-3.png";
 import team4 from "@/assets/team-4.png";
 import team5 from "@/assets/team-5.png";
 import team6 from "@/assets/team-6.png";
@@ -39,7 +38,6 @@ const Teams = () => {
     },
     { name: "Janani Arikatla", role: "Student Ambassador - Project Mitra", image: team1 },
     { name: "Aashitha Mallela", role: "Pixel Head - Chitra Lehri", image: team2 },
-    { name: "Sravaya Reddy", role: "Student Ambassador - Pallebaata", image: team3 },
     { name: "Jahanara Ghori", role: "Project Ambassador - Vishwakarma", image: team4 },
     { name: "Krithika Kiran", role: "Head of Public Relations", image: team5 },
     { name: "Haifa Siddique", role: "Student Ambassador - Chercha", image: team6 },
